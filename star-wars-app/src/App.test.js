@@ -44,7 +44,7 @@ test("next button", async () => {
   expect(wrapper.queryByAltText(/John/i)).toBeNull();
 })
 
-test("next button", async () => {
+test("previous button", async () => {
   const wrapper = rtl.render(<App />);
   await wrapper.findAllByText(/name/i);
 
