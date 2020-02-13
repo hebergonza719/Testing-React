@@ -11,7 +11,7 @@ jest.mock("axios", () => {
   return {
     get: jest.fn(() => Promise.resolve({
       data: {
-        results: [{name: "John"}, {name: "Paul"}, {name: "Ringo"}, {name: "George"}]
+        results: [{name: "John"}, {name: "Paul"}]
       }
     }))
   }
@@ -25,6 +25,34 @@ test("render of character information", async () => {
 
 test('made an api call', async () => {
   const wrapper = rtl.render(<App />);
-  await wrapper.findAllByText(/name/i);
+  // why is this await below necessary?????????
+  // Could it be anything that can be
+  await wrapper.findAllByAltText(/logo/i);
   expect(axios.get).toHaveBeenCalled();
 });
+
+test("next button", async () => {
+  const wrapper = rtl.render(<App />);
+  await wrapper.findAllByText(/name/i);
+
+  const nextBtn = wrapper.getByText(/next/i);
+
+  rtl.act(()=>{
+    rtl.fireEvent.click(nextBtn);
+  });
+
+  expect(wrapper.queryByAltText(/John/i)).toBeNull();
+})
+
+test("next button", async () => {
+  const wrapper = rtl.render(<App />);
+  await wrapper.findAllByText(/name/i);
+
+  const prevBtn = wrapper.getByText(/previous/i);
+
+  rtl.act(()=>{
+    rtl.fireEvent.click(prevBtn);
+  });
+
+  expect(wrapper.queryByAltText(/John/i)).toBeNull();
+})
