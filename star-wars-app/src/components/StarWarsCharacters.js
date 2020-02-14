@@ -14,7 +14,7 @@ export default function StarWarsCharacters() {
     setIsLoading(true);
     const getCharacters = async () => {
       const characters = await getData(url);
-      console.log(characters);
+      console.log("this is characters in useEffect",characters);
       setNext(characters.next);
       setPrevious(characters.previous);
       setCharacters(characters.results);
@@ -46,7 +46,7 @@ export default function StarWarsCharacters() {
       ) : (
         <>
           {characters.map(character => (
-            <div key={character.url}>{character.name}</div>
+            <div key={character.url}>Name: {character.name}</div>
           ))}
         </>
       )}
